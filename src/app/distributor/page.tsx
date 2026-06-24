@@ -141,12 +141,10 @@ export default async function DistributorPage({
                         className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm flex flex-col gap-4"
                       >
                         <div className="flex items-start justify-between gap-3">
-                          <div className="flex flex-wrap gap-2">
-                            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
-                              {CATEGORY_LABELS[req.category]}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
+                          <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
+                            {CATEGORY_LABELS[req.category]}
+                          </span>
+                          <div className="flex items-start gap-2 shrink-0">
                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                               {STATUS_LABELS[req.status]}
                             </span>

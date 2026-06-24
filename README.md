@@ -20,6 +20,8 @@ Open [http://localhost:3000](http://localhost:3000) and you can see the contract
 
 - Fairly simple parts request data model
 
+```javascript
+
 export type Category = 'hvac' | 'plumbing' | 'automotive'
 export type Status = 'pending' | 'filled' | 'shipped'
 
@@ -33,6 +35,7 @@ export interface PartRequest {
   createdAt: string
   updatedAt: string
 }
+```
 
 ### The Real-Time Scope
 
@@ -44,10 +47,14 @@ export interface PartRequest {
 ### The GraphQL Schema
 
 ### Error/Edge Cases
+- Kept the contractor form really simple:
+  - In the future there should probably be better guardrails on the form
+  - Also just to keep within time restrictions, I did not make requests editable by the contractor
+  - Similarly, I did not make requests archivavble
 
 ## Notes
 
-- I did use Claude Code to speed up development
+- I used Claude Code to speed up development
 - I have less experience with GraphQL so Claude was a big help there
-- 
+- SQLite here is a great suggestion to get this installed quickly/easily for review
 

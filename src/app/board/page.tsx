@@ -81,12 +81,10 @@ export default async function BoardPage({
               {allRequests.map((req) => (
                 <div key={req.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm space-y-2">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="flex flex-wrap gap-1.5">
-                      <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
-                        {CATEGORY_LABELS[req.category]}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
+                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
+                      {CATEGORY_LABELS[req.category]}
+                    </span>
+                    <div className="flex items-start gap-2 shrink-0">
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                         {STATUS_LABELS[req.status]}
                       </span>
@@ -172,12 +170,10 @@ export default async function BoardPage({
                     {group.map((req) => (
                       <div key={req.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm space-y-3">
                         <div className="flex items-start justify-between gap-2">
-                          <div className="flex flex-wrap gap-1.5">
-                            <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
-                              {CATEGORY_LABELS[req.category]}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
+                          <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
+                            {CATEGORY_LABELS[req.category]}
+                          </span>
+                          <div className="flex items-start gap-2 shrink-0">
                             <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                               {STATUS_LABELS[req.status]}
                             </span>
