@@ -5,6 +5,7 @@ import { getRequests } from '../lib/store'
 import { CATEGORY_LABELS, CATEGORY_STYLES, STATUS_STYLES, STATUS_LABELS } from '../ui/badges'
 import RequestForm from './RequestForm'
 import DeleteButton from './DeleteButton'
+import FilterBar from './FilterBar'
 
 function timeAgo(iso: string) {
   const diff = Date.now() - new Date(iso).getTime()
@@ -16,8 +17,15 @@ function timeAgo(iso: string) {
   return `${Math.floor(hrs / 24)}d ago`
 }
 
-export default async function ContractorPage() {
-  const requests = await getRequests()
+export default async function ContractorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const { category: rawCategory, status: rawStatus } = await searchParams
+  const filterCategory = typeof rawCategory === 'string' ? rawCategory : undefined
+  const filterStatus = typeof rawStatus === 'string' ? rawStatus : undefined
+  const requests = await getRequests({ category: filterCategory, status: filterStatus })
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -44,6 +52,7 @@ export default async function ContractorPage() {
 
         <section className="lg:col-span-2 space-y-4">
           <h2 className="text-base font-semibold text-gray-700">Your Requests</h2>
+          <FilterBar filterStatus={filterStatus} filterCategory={filterCategory} />
 
           {requests.length === 0 && (
             <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-400">

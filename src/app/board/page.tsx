@@ -45,7 +45,7 @@ export default async function BoardPage({
       <RealtimeUpdater />
 
       <header className="border-b border-gray-200 bg-white shrink-0">
-        <div className="mx-auto max-w-screen-xl px-6 py-4 flex items-center gap-3">
+        <div className="mx-auto max-w-screen-2xl px-6 py-4 flex items-center gap-3">
           <Link href="/" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
             ← Home
           </Link>
@@ -56,10 +56,10 @@ export default async function BoardPage({
         </div>
       </header>
 
-      <div className="flex flex-1 mx-auto w-full max-w-screen-xl divide-x divide-gray-200">
+      <div className="flex flex-1 mx-auto w-full max-w-screen-2xl divide-x divide-gray-200">
 
         {/* ── LEFT: Contractor ── */}
-        <section className="flex flex-col w-[420px] shrink-0">
+        <section className="flex flex-col w-[720px] shrink-0">
           <div className="border-b border-gray-200 bg-white px-6 py-3 flex items-center gap-2">
             <span className="text-base">🔧</span>
             <h2 className="text-sm font-semibold text-gray-900">Contractor</h2>
@@ -72,9 +72,9 @@ export default async function BoardPage({
               <RequestForm />
             </div>
 
-            <div className="flex-1 px-4 py-4 space-y-3">
+            <div className="flex-1 px-4 py-4 grid grid-cols-2 gap-3 auto-rows-min">
               {allRequests.length === 0 && (
-                <div className="rounded-xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-400">
+                <div className="col-span-2 rounded-xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-400">
                   No requests yet.
                 </div>
               )}

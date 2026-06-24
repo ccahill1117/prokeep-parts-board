@@ -1,17 +1,21 @@
 'use client'
 
 import { useActionState, useRef } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import { createRequest } from '../actions'
 
 const initialState = { error: '' }
 
 export default function RequestForm() {
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   async function wrappedAction(_prev: typeof initialState, formData: FormData) {
     try {
       await createRequest(formData)
       formRef.current?.reset()
+      router.replace(pathname)
       return { error: '' }
     } catch {
       return { error: 'Failed to submit request. Please try again.' }
