@@ -72,5 +72,5 @@ export interface PartRequest {
 - I have less experience with GraphQL so Claude was a big help there
 - SQLite here is a great suggestion to get this installed quickly/easily for review
 - .zip created with command: 
-  - $ zip -r prokeep-parts-board.zip . -x "node_modules/*" -x ".next/*" -x ".git/*"
+  - $ cd /Users/christophercahill/projects && find prokeep-parts-board -not \( -path "*/node_modules/*" -o -path "*/.next/*" -o -path "*/.git/*" \) | zip prokeep-parts-board.zip -@
 
