@@ -1,5 +1,7 @@
 ## Prokeep assignment -  Getting Started
 
+I have also put this app up on my Github - https://github.com/ccahill1117/prokeep-parts-board
+
 To run this app locally the first time, and create the necessary database:
 
 ```bash
