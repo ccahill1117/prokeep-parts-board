@@ -2,7 +2,7 @@
 
 I have also put this app up on my Github, if you prefer to clone it that way - https://github.com/ccahill1117/prokeep-parts-board
 
-To run this app locally the first time (whether cloning or using .zip), do the following:
+To run this app locally the first time (whether cloning or using .zip), do the following on the "main" branch:
 
 ```bash
 
