@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { addRequest, setStatus } from '../lib/db'
+import { addRequest, setStatus, deleteRequest as dbDeleteRequest } from '../lib/db'
 import { pubsub } from '../graphql/pubsub'
 import type { Category, Status } from '../lib/db'
 
@@ -17,6 +17,12 @@ export async function createRequest(formData: FormData) {
 
   const req = await addRequest({ category, partName, quantity, notes })
   pubsub.publish('REQUEST_CHANGE', req)
+  revalidatePath('/')
+}
+
+export async function deleteRequest(formData: FormData) {
+  const id = formData.get('id') as string
+  await dbDeleteRequest(id)
   revalidatePath('/')
 }
 

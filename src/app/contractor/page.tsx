@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { getRequests } from '../lib/store'
 import { CATEGORY_LABELS, CATEGORY_STYLES, STATUS_STYLES, STATUS_LABELS } from '../ui/badges'
 import RequestForm from './RequestForm'
+import DeleteButton from './DeleteButton'
 
 function timeAgo(iso: string) {
   const diff = Date.now() - new Date(iso).getTime()
@@ -60,11 +61,16 @@ export default async function ContractorPage() {
                   <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
                     {CATEGORY_LABELS[req.category]}
                   </span>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
                   <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                     {STATUS_LABELS[req.status]}
                   </span>
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs text-gray-400" title={`Last updated: ${new Date(req.updatedAt).toLocaleString()}`}>Up: {timeAgo(req.updatedAt)}</span>
+                    <span className="text-xs text-gray-400" title={`Created: ${new Date(req.createdAt).toLocaleString()}`}>Cr: {timeAgo(req.createdAt)}</span>
+                  </div>
                 </div>
-                <span className="shrink-0 text-xs text-gray-400">{timeAgo(req.createdAt)}</span>
               </div>
 
               <div>
@@ -75,6 +81,9 @@ export default async function ContractorPage() {
               {req.notes && (
                 <p className="text-sm text-gray-500 border-t border-gray-100 pt-3">{req.notes}</p>
               )}
+              <div>
+                <DeleteButton id={req.id} status={req.status} />
+              </div>
             </div>
           ))}
         </section>

@@ -145,11 +145,16 @@ export default async function DistributorPage({
                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
                               {CATEGORY_LABELS[req.category]}
                             </span>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                               {STATUS_LABELS[req.status]}
                             </span>
+                            <div className="flex flex-col items-end">
+                              <span className="text-xs text-gray-400" title={`Last updated: ${new Date(req.updatedAt).toLocaleString()}`}>Up: {timeAgo(req.updatedAt)}</span>
+                              <span className="text-xs text-gray-400" title={`Created: ${new Date(req.createdAt).toLocaleString()}`}>Cr: {timeAgo(req.createdAt)}</span>
+                            </div>
                           </div>
-                          <span className="shrink-0 text-xs text-gray-400">{timeAgo(req.createdAt)}</span>
                         </div>
 
                         <div>

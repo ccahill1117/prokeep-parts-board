@@ -4,6 +4,7 @@ import { getRequests, Status } from '../lib/store'
 import { CATEGORY_LABELS, CATEGORY_STYLES, STATUS_STYLES, STATUS_LABELS } from '../ui/badges'
 import RequestForm from '../contractor/RequestForm'
 import StatusActions from '../distributor/StatusActions'
+import DeleteButton from '../contractor/DeleteButton'
 import RealtimeUpdater from '../ui/RealtimeUpdater'
 import Link from 'next/link'
 
@@ -84,15 +85,23 @@ export default async function BoardPage({
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
                         {CATEGORY_LABELS[req.category]}
                       </span>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                         {STATUS_LABELS[req.status]}
                       </span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-xs text-gray-400" title={`Last updated: ${new Date(req.updatedAt).toLocaleString()}`}>Up: {timeAgo(req.updatedAt)}</span>
+                        <span className="text-xs text-gray-400" title={`Created: ${new Date(req.createdAt).toLocaleString()}`}>Cr: {timeAgo(req.createdAt)}</span>
+                      </div>
                     </div>
-                    <span className="shrink-0 text-xs text-gray-400">{timeAgo(req.createdAt)}</span>
                   </div>
                   <p className="text-sm font-medium text-gray-900">{req.partName}</p>
                   <p className="text-xs text-gray-500">Qty: {req.quantity}</p>
                   {req.notes && <p className="text-xs text-gray-400 border-t border-gray-100 pt-2">{req.notes}</p>}
+                  <div className="pt-1">
+                    <DeleteButton id={req.id} status={req.status} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -167,11 +176,16 @@ export default async function BoardPage({
                             <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
                               {CATEGORY_LABELS[req.category]}
                             </span>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
                             <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[req.status]}`}>
                               {STATUS_LABELS[req.status]}
                             </span>
+                            <div className="flex flex-col items-end">
+                              <span className="text-xs text-gray-400" title={`Last updated: ${new Date(req.updatedAt).toLocaleString()}`}>Up: {timeAgo(req.updatedAt)}</span>
+                              <span className="text-xs text-gray-400" title={`Created: ${new Date(req.createdAt).toLocaleString()}`}>Cr: {timeAgo(req.createdAt)}</span>
+                            </div>
                           </div>
-                          <span className="shrink-0 text-xs text-gray-400">{timeAgo(req.createdAt)}</span>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900 leading-snug">{req.partName}</p>

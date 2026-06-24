@@ -86,6 +86,11 @@ export async function addRequest(
   return toRequest(db.prepare('SELECT * FROM part_requests WHERE id = ?').get(id) as Row)
 }
 
+export async function deleteRequest(id: string): Promise<boolean> {
+  const result = db.prepare('DELETE FROM part_requests WHERE id = ?').run(id)
+  return result.changes > 0
+}
+
 export async function setStatus(id: string, status: Status): Promise<PartRequest | null> {
   const now = new Date().toISOString()
   const result = db.prepare(
