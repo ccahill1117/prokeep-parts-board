@@ -63,6 +63,8 @@ export interface PartRequest {
 ### Error/Edge Cases
 - I tried to keep complexity low so it's fun to click through
   - that also means with a lot of requests on the screen the app view gets a little weird
+- In the side-by-side view, there were some url param issues with filtering in two different views on same screen
+  - was able to patch those with some logic checks on if params are set
 
 ## Notes
 
