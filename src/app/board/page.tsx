@@ -23,14 +23,20 @@ function timeAgo(iso: string) {
 export default async function BoardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; category?: string }>
+  searchParams: Promise<{ status?: string; category?: string; cStatus?: string; cCategory?: string }>
 }) {
-  const { status: filterStatus, category: filterCategory } = await searchParams
+  const { status: filterStatus, category: filterCategory, cStatus, cCategory } = await searchParams
   const allRequests = await getRequests()
 
   const filtered = allRequests.filter((r) => {
     if (filterStatus && r.status !== filterStatus) return false
     if (filterCategory && r.category !== filterCategory) return false
+    return true
+  })
+
+  const contractorFiltered = allRequests.filter((r) => {
+    if (cStatus && r.status !== cStatus) return false
+    if (cCategory && r.category !== cCategory) return false
     return true
   })
 
@@ -72,13 +78,45 @@ export default async function BoardPage({
               <RequestForm />
             </div>
 
+            <div className="border-b border-gray-100 bg-white px-4 py-2.5 flex flex-wrap gap-2 items-center">
+              {(['', 'pending', 'filled', 'shipped'] as const).map((s) => {
+                const isActive = (cStatus ?? '') === s
+                const params = new URLSearchParams()
+                if (filterStatus) params.set('status', filterStatus)
+                if (filterCategory) params.set('category', filterCategory)
+                if (s) params.set('cStatus', s)
+                if (cCategory) params.set('cCategory', cCategory)
+                return (
+                  <Link key={s} href={`/board${params.toString() ? '?' + params : ''}`}
+                    className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${isActive ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'}`}>
+                    {s === '' ? 'All' : STATUS_LABELS[s as Status]}
+                  </Link>
+                )
+              })}
+              <span className="text-gray-200">|</span>
+              {(['', 'hvac', 'plumbing', 'automotive'] as const).map((c) => {
+                const isActive = (cCategory ?? '') === c
+                const params = new URLSearchParams()
+                if (filterStatus) params.set('status', filterStatus)
+                if (filterCategory) params.set('category', filterCategory)
+                if (cStatus) params.set('cStatus', cStatus)
+                if (c) params.set('cCategory', c)
+                return (
+                  <Link key={c} href={`/board${params.toString() ? '?' + params : ''}`}
+                    className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${isActive ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'}`}>
+                    {c === '' ? 'All categories' : CATEGORY_LABELS[c]}
+                  </Link>
+                )
+              })}
+            </div>
+
             <div className="flex-1 px-4 py-4 grid grid-cols-2 gap-3 auto-rows-min">
-              {allRequests.length === 0 && (
+              {contractorFiltered.length === 0 && (
                 <div className="col-span-2 rounded-xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-400">
-                  No requests yet.
+                  No requests match this filter.
                 </div>
               )}
-              {allRequests.map((req) => (
+              {contractorFiltered.map((req) => (
                 <div key={req.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm space-y-2">
                   <div className="flex items-start justify-between gap-2">
                     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_STYLES[req.category]}`}>
@@ -130,6 +168,8 @@ export default async function BoardPage({
               const params = new URLSearchParams()
               if (s) params.set('status', s)
               if (filterCategory) params.set('category', filterCategory)
+              if (cStatus) params.set('cStatus', cStatus)
+              if (cCategory) params.set('cCategory', cCategory)
               return (
                 <Link key={s} href={`/board${params.toString() ? '?' + params : ''}`}
                   className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${isActive ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'}`}>
@@ -143,6 +183,8 @@ export default async function BoardPage({
               const params = new URLSearchParams()
               if (filterStatus) params.set('status', filterStatus)
               if (c) params.set('category', c)
+              if (cStatus) params.set('cStatus', cStatus)
+              if (cCategory) params.set('cCategory', cCategory)
               return (
                 <Link key={c} href={`/board${params.toString() ? '?' + params : ''}`}
                   className={`rounded-full px-3 py-1 text-xs font-medium border transition-colors ${isActive ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'}`}>
